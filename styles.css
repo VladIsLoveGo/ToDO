@@ -21,7 +21,6 @@ body {
     }
 }
 
-/* Адаптивность для планшетов и мобильных */
 @media only screen and (max-width: 768px) {
     body {
         padding: 0.5rem;

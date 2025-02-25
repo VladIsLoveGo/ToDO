@@ -1,10 +1,3 @@
-/**
- * To-Do List Application
- * Этот скрипт управляет To-Do списком, включая добавление, удаление, редактирование,
- * отметку задач как выполненных, а также сохранение в localStorage и анимации.
- */
-
-// Получаем DOM-элементы
 const taskInput = document.getElementById('task-input');
 const form = document.querySelector('.form');
 const taskList = document.querySelector('.toDoList');
@@ -12,10 +5,6 @@ const detailModal = document.getElementById('detailModal');
 const detailText = document.getElementById('detailText');
 const closeDetail = document.getElementById('closeDetail');
 
-/**
- * Добавляет новую задачу в список
- * @param {Event} e - Событие отправки формы
- */
 function addTask(e) {
     e.preventDefault();
     const taskText = taskInput.value.trim();
@@ -28,7 +17,6 @@ function addTask(e) {
     li.className = 'task-item';
     li.setAttribute('data-id', Date.now());
 
-    // Контейнер для текста задачи
     const textContainer = document.createElement('div');
     textContainer.className = 'task-text-container';
 
@@ -59,11 +47,9 @@ function addTask(e) {
     buttonGroup.appendChild(deleteButton);
     buttonGroup.appendChild(completeButton);
 
-    // Добавляем текст и кнопки в li
     li.appendChild(textContainer);
     li.appendChild(buttonGroup);
 
-    // Анимация появления новой задачи
     li.style.opacity = '0';
     li.style.transform = 'scale(0.95)';
     taskList.appendChild(li);
@@ -77,43 +63,34 @@ function addTask(e) {
     saveTasks(); // Сохраняем задачи в localStorage
 }
 
-/**
- * Показывает подтверждение удаления задачи
- * @param {HTMLElement} li - Элемент списка задачи
- */
 function showDeleteConfirmation(li) {
     const modal = document.getElementById('deleteModal');
     const confirmDelete = document.getElementById('confirmDelete');
     const cancelDelete = document.getElementById('cancelDelete');
 
-    // Полностью сбрасываем состояние модального окна
     modal.style.display = 'none';
     modal.classList.remove('active');
     modal.style.opacity = '';
     modal.style.transform = '';
     modal.style.transition = '';
 
-    // Убедимся, что модальное окно очищено от предыдущих стилей и классов
     setTimeout(() => {
         modal.classList.add('active');
         modal.style.display = 'flex';
         modal.style.opacity = '0';
         modal.style.transform = 'scale(0.95)';
 
-        // Анимация появления модального окна
         setTimeout(() => {
             modal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             modal.style.opacity = '1';
             modal.style.transform = 'scale(1)';
         }, 10);
 
-        // Назначаем новые обработчики, очищая старые
         confirmDelete.onclick = null;
         cancelDelete.onclick = null;
         modal.onclick = null;
 
         confirmDelete.onclick = function() {
-            // Простая анимация удаления
             li.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
             li.style.opacity = '0';
             li.style.transform = 'scale(0.9)';
@@ -121,7 +98,7 @@ function showDeleteConfirmation(li) {
                 li.remove();
                 modal.style.display = 'none';
                 modal.classList.remove('active');
-                saveTasks(); // Сохраняем обновленный список
+                saveTasks();
             }, 400);
         };
 
@@ -149,10 +126,6 @@ function showDeleteConfirmation(li) {
     }, 0);
 }
 
-/**
- * Показывает полный текст задачи в модальном окне
- * @param {string} text - Полный текст задачи
- */
 function showDetailModal(text) {
     detailText.textContent = text;
     detailModal.classList.add('active');
@@ -166,11 +139,6 @@ function showDetailModal(text) {
     }, 10);
 }
 
-/**
- * Показывает модальное окно для редактирования задачи
- * @param {string} fullText - Текущий полный текст задачи
- * @param {HTMLElement} li - Элемент списка задачи
- */
 function showEditModal(fullText, li) {
     const editModal = document.getElementById('editModal');
     const editInput = document.getElementById('editInput');
@@ -238,10 +206,6 @@ function showEditModal(fullText, li) {
     };
 }
 
-/**
- * Переключает статус выполнения задачи
- * @param {HTMLElement} li - Элемент списка задачи
- */
 function toggleComplete(li) {
     li.classList.toggle('completed');
     const completeButton = li.querySelector('.complete-button');
@@ -253,12 +217,10 @@ function toggleComplete(li) {
     setTimeout(() => {
         text.style.transform = 'scale(1)';
     }, 300);
-    saveTasks(); // Сохраняем после изменения статуса
+    saveTasks();
 }
 
-/**
- * Сохраняет задачи в localStorage
- */
+
 function saveTasks() {
     const tasks = [];
     document.querySelectorAll('.task-item').forEach(task => {
@@ -271,9 +233,6 @@ function saveTasks() {
     localStorage.setItem('todoTasks', JSON.stringify(tasks));
 }
 
-/**
- * Загружает задачи из localStorage при загрузке страницы
- */
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem('todoTasks') || '[]');
     tasks.forEach(task => {
@@ -315,7 +274,6 @@ function loadTasks() {
 
         if (task.completed) li.classList.add('completed');
 
-        // Анимация появления загруженных задач
         li.style.opacity = '0';
         li.style.transform = 'scale(0.95)';
         taskList.appendChild(li);
@@ -327,17 +285,16 @@ function loadTasks() {
     });
 }
 
-// Инициализация при загрузке страницы
+
 document.addEventListener('DOMContentLoaded', () => {
-    loadTasks(); // Загружаем задачи из localStorage
+    loadTasks();
 
     form.addEventListener('submit', addTask);
 
-    // Обработчик событий для задач
     taskList.addEventListener('click', function(event) {
         const target = event.target;
         const li = target.closest('li');
-        if (!li) return; // Проверка на существование li
+        if (!li) return;
         const textContainer = li.querySelector('.task-text-container');
         const span = textContainer ? textContainer.querySelector('.task-text') : null;
         const buttonGroup = li.querySelector('.button-group');
@@ -355,7 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Закрытие модального окна полного текста
     closeDetail.addEventListener('click', () => {
         detailModal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         detailModal.style.opacity = '0';
@@ -366,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     });
 
-    // Закрытие модального окна полного текста при клике вне его
     detailModal.addEventListener('click', (e) => {
         if (e.target === detailModal) {
             detailModal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
