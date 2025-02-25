@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <section class="container">
+        <div class="heading">
+            <img class="heading__img" src="https://cdn.pixabay.com/photo/2023/04/12/15/20/cat-7920613_1280.png" alt="catto">
+            <h1 class="heading__title">Мой To-Do List</h1>
+            <img class="heading__img" src="https://cdn.pixabay.com/photo/2023/04/12/15/20/cat-7920613_1280.png" alt="catto">
+        </div>
+        <form class="form">
+            <div class="add-task">
+                <input class="form__input" type="text" id="task-input" name="task" required>
+                <button class="button" type="submit">Добавить</button>
+            </div>
+        </form>
+        <ul class="toDoList" id="task-list">
+        </ul>
+        <div class="bottom">
+            <img class="heading__img" src="https://cdn.pixabay.com/photo/2023/04/15/17/18/cat-7928228_1280.png" alt="catto2">
+            <img class="heading__img" src="https://cdn.pixabay.com/photo/2023/04/15/17/18/cat-7928228_1280.png" alt="catto2">
+        </div>
+    </section>
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <p>Ты точно хочешь удалить эту задачку? (◕︵◕)</p>
+            <div class="modal-buttons">
+                <button id="confirmDelete">Удалить</button>
+                <button id="cancelDelete">Отменить</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <p id="detailText"></p>
+            <button id="closeDetail">Закрыть</button>
+        </div>
+    </div>
+    <div class="modal" id="editModal">
+        <div class="modal-content edit-modal-content">
+            <input class="edit-input" type="text" id="editInput" maxlength="100">
+            <div class="modal-buttons">
+                <button id="confirmEdit">Сохранить</button>
+                <button id="cancelEdit">Отменить</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
